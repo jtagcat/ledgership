@@ -1,0 +1,11 @@
+[package]
+name = "ledgership"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ledger-parser = "5.1.1"
+sqlx = { version = "0.7", features = [ "runtime-tokio", "tls-native-tls", "postgres", "macros", "migrate", "rust_decimal", "chrono"] }
+tokio = "1.36.0"
