@@ -9,7 +9,7 @@ CREATE TYPE grantT AS (
 --        -> {admin} returns all + subscriber count
 -- TODO: GET /package/:id {user:own}
 --        -> {admin} returns subscribers
--- TODO: PATCH /package/:id?successor=id {admin} - moves subscriptions, creates a new subscription on price change; TODO: test edge-cases
+-- TODO: PATCH /package/:id?successor=id {admin} - moves subscriptions and package:addon_of, creates a new subscription on price change; TODO: test edge-cases
 -- TODO: PUT /package/:id?publish_for=text, {admin}: publish_for
 --
 -- TODO: might want to break this up
@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS packages (
 
     grants	    grantT[],
 
+    -- v both conditions must be met
+    addon_of	    ELEMENT REFERENCES packages, -- mutable; TODO: might fail
     publish_for     TEXT[], -- mutable; /package for non-admin
     -- ^ packages present in user transactions are always queriable by user
 );
