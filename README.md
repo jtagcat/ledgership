@@ -24,14 +24,13 @@ https://docs.rs/openssl/latest/openssl/#automatic
   "service": "oidc",
   "grants": {
     "bob": [
-      "k-space:package_supporter",
-      "k-space:vm_user"
+      {"subscription": 159, "data": "k-space:vm_user"}
     ],
     "alice": [
-      "k-space:package_member",
-      "k-space:vm_user",
-      "k-space:vm_user",
-      "k-space:workshop"
+      {"subscription": 160, "data": "k-space:package_member"},
+      {"subscription": 161, "data": "k-space:vm_user"},
+      {"subscription": 162, "data": "k-space:vm_user"},
+      {"subscription": 164, "data": "k-space:workshop"}
     ]
   }
 }
@@ -41,10 +40,10 @@ https://docs.rs/openssl/latest/openssl/#automatic
   "service": "slack",
   "grants": {
     "bob": [
-      "guest"
+      {"subscription": 158, "data": "friend"}
     ],
     "alice": [
-      "member"
+      {"subscription": 160, "data": "member"}
     ]
   }
 }
@@ -54,11 +53,11 @@ https://docs.rs/openssl/latest/openssl/#automatic
   "service": "proxmox",
   "grants": {
     "bob": [
-      "cpu=4,ram=4096,disk=100"
+      {"subscription": 159, "data": "cpu=4,ram=4096,disk=100"}
     ],
     "alice": [
-      "cpu=4,ram=4096,disk=100",
-      "cpu=4,ram=4096,disk=100"
+      {"subscription": 161, "data": "cpu=4,ram=4096,disk=100"},
+      {"subscription": 162, "data": "cpu=4,ram=4096,disk=100"}
     ]
   }
 }
