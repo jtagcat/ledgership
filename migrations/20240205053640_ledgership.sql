@@ -1,3 +1,9 @@
+-- TODO: GET /grants {
+CREATE TYPE grantT AS (
+    service	TEXT,
+    data	TEXT,
+);
+
 -- TODO: POST /package {admin}
 -- TODO: GET /package
 --        -> {admin} returns all + subscriber count
@@ -20,7 +26,8 @@ CREATE TABLE IF NOT EXISTS packages (
     currency        TEXT    NOT NULL,
     -- ^
 
-    grants          TEXT[], -- oidc group
+    grants	    grantT[],
+
     publish_for     TEXT[], -- mutable; /package for non-admin
     -- ^ packages present in user transactions are always queriable by user
 );
