@@ -33,6 +33,10 @@ CREATE TABLE IF NOT EXISTS packages (
     publish_for     TEXT[], -- mutable; /package for non-admin
     -- ^ packages present in user transactions are always queriable by user
 );
+CREATE INDEX packages_price_index ON subscriptions (id) WITH price;
+CREATE INDEX packages_addons_index ON subscriptions (addon_of) WITH id;
+CREATE INDEX packages_grants_index ON subscriptions (id) WITH grants;
+CREATE INDEX packages_display_index ON subscriptions (publish_for,addon_of);
 --
 CREATE TABLE IF NOT EXISTS packages_order (
     order   ELEMENT REFERENCES packages, --TODO: might fail
@@ -63,25 +67,35 @@ CREATE TABLE IF NOT EXISTS subscriptions (
     invoice_email    TEXT,
 );
 --
-CREATE INDEX subscriptions_user_index ON subscriptions (user);
+CREATE INDEX subscriptions_index ON subscriptions (user,notAfter);
+CREATE INDEX subscriptions_grantee_index ON subscriptions (grantee,notAfter) WITH (user,package);
 
 CREATE TYPE IF NOT EXISTS transaction_kind AS ENUM (
     'deposit',
     'expense',
-    'expense_subscription',
+    'meta_subscription' -- TODO: includes whether the migration is 'safe' aka hidden in UI
 );
 
 -- TODO: GET /ledger
 --        -> {admin} /:user
 -- TODO: GET /ledger/export
 --        -> {admin} all users
+CREATE TABLE IF NOT EXISTS events {
+    user    TEXT                NOT NULL,
+    ts      TIMESTAMP           NOT NULL,
+    hidden  BOOLEAN             NOT NULL, -- for example safe migrations
+    source  TEXT                NOT NULL,
+    content TEXT		NOT NULL,
+};
+--
+CREATE INDEX events_index ON events (user,ts);
+--
 CREATE TABLE IF NOT EXISTS ledger (
     user    TEXT                NOT NULL,
     ts      TIMESTAMP           NOT NULL,
     source  TEXT                NOT NULL,
-    kind    transaction_kind    NOT NULL,
 
     -- ledger...
 );
 --
-CREATE INDEX subscriptions_user_index ON subscriptions (user,ts);
+CREATE INDEX ledger_index ON ledger (user,ts);
