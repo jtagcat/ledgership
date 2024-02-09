@@ -3,9 +3,13 @@ Ledgership aka membermower
 ## Environment
 ```
 LEDGERSHIP_SERVICE_<name>_KEY=<secret>,
+
 LEDGERSHIP_FAILURE_WEBHOOK=https://must_be_set
-LEDGERSHIP_ADMIN_GROUPS=k-space:onboarder,k-space:admin
-LEDGERSHIP_AUDIT_GROUPS=k-space:accounting
+
+LEDGERSHIP_ADMIN_GROUPS=k-space:admin # can edit packages
+LEDGERSHIP_AUDIT_GROUPS=k-space:accounting # can view everything
+LEDGERSHIP_DEALS_GROUPS=k-space:onboarder # can start subscriptionships on behalf of users, with custom price
+
 LEDGERSHIP_MINIMUM_BALANCE=-5.00 EUR # Vending machine convenience
 LEDGERSHIP_GRACE_PERIOD=1d # only after first payment
 ```
