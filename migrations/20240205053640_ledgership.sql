@@ -1,5 +1,5 @@
 -- TODO: GET /grants {
-CREATE TYPE grantT AS (
+CREATE TYPE IF NOT EXISTS grantT AS (
     service	TEXT,
     data	TEXT,
 );
@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS packages (
     publish_for     TEXT[], -- mutable; /package for non-admin
     -- ^ packages present in user transactions are always queriable by user
 );
-CREATE INDEX packages_price_index ON subscriptions (id) WITH price;
-CREATE INDEX packages_addons_index ON subscriptions (addon_of) WITH id;
-CREATE INDEX packages_grants_index ON subscriptions (id) WITH grants;
-CREATE INDEX packages_display_index ON subscriptions (publish_for,addon_of);
+CREATE INDEX IF NOT EXISTS packages_price_index ON subscriptions (id) WITH price;
+CREATE INDEX IF NOT EXISTS packages_addons_index ON subscriptions (addon_of) WITH id;
+CREATE INDEX IF NOT EXISTS packages_grants_index ON subscriptions (id) WITH grants;
+CREATE INDEX IF NOT EXISTS packages_display_index ON subscriptions (publish_for,addon_of);
 --
 CREATE TABLE IF NOT EXISTS packages_order (
     order   ELEMENT REFERENCES packages, --TODO: might fail
@@ -67,8 +67,8 @@ CREATE TABLE IF NOT EXISTS subscriptions (
     invoice_email    TEXT,
 );
 --
-CREATE INDEX subscriptions_index ON subscriptions (user,notAfter);
-CREATE INDEX subscriptions_grantee_index ON subscriptions (grantee,notAfter) WITH (user,package);
+CREATE INDEX IF NOT EXISTS subscriptions_index ON subscriptions (user,notAfter);
+CREATE INDEX IF NOT EXISTS subscriptions_grantee_index ON subscriptions (grantee,notAfter) WITH (user,package);
 
 CREATE TYPE IF NOT EXISTS transaction_kind AS ENUM (
     'deposit',
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS events {
     content TEXT		NOT NULL,
 };
 --
-CREATE INDEX events_index ON events (user,ts);
+CREATE INDEX IF NOT EXISTS events_index ON events (user,ts);
 --
 CREATE TABLE IF NOT EXISTS ledger (
     user    TEXT                NOT NULL,
@@ -98,4 +98,4 @@ CREATE TABLE IF NOT EXISTS ledger (
     -- ledger...
 );
 --
-CREATE INDEX ledger_index ON ledger (user,ts);
+CREATE INDEX IF NOT EXISTS ledger_index ON ledger (user,ts);
