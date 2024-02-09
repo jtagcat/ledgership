@@ -2,7 +2,7 @@ Ledgership aka membermower
 
 ## Environment
 ```
-LEDGERSHIP_SERVICE_<name>_KEY=<secret>
+LEDGERSHIP_SERVICE_<name>_KEY=<secret>,
 LEDGERSHIP_FAILURE_WEBHOOK=https://must_be_set
 LEDGERSHIP_ADMIN_GROUPS=k-space:onboarder,k-space:admin
 LEDGERSHIP_AUDIT_GROUPS=k-space:accounting
