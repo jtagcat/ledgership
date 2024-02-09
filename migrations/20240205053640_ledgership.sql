@@ -80,6 +80,8 @@ CREATE TYPE IF NOT EXISTS transaction_kind AS ENUM (
 --        -> {admin} /:user
 -- TODO: GET /ledger/export
 --        -> {admin} all users
+-- TODO: GET /negative {admin}
+-- TODO: GET /negative/:user?period=5d
 CREATE TABLE IF NOT EXISTS events {
     user    TEXT                NOT NULL,
     ts      TIMESTAMP           NOT NULL,
@@ -99,3 +101,6 @@ CREATE TABLE IF NOT EXISTS ledger (
 );
 --
 CREATE INDEX IF NOT EXISTS ledger_index ON ledger (user,ts);
+
+-- TODO: Internal Billing routine
+-- Follow dayofmonth, if DoM is out of range, use last day of month.
