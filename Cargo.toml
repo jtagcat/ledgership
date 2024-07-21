@@ -5,7 +5,16 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[workspace]
+# members = ["hledger"]
+
 [dependencies]
-ledger-parser = "5.1.1"
-sqlx = { version = "0.7", features = [ "runtime-tokio", "tls-native-tls", "postgres", "macros", "migrate", "rust_decimal", "chrono"] }
-tokio = "1.36.0"
+chrono = "0.4"
+reqwest = { version = "0.12", features = ["native-tls"] }
+serde = { version = "1", features = ["serde_derive"] }
+serde-xml-rs = "0.6"
+thiserror = "1"
+# ledger-parser = "5.1.1"
+# rocket = "0.5.0"
+# sqlx = { version = "0.7", features = [ "runtime-tokio", "tls-native-tls", "postgres", "macros", "migrate", "rust_decimal", "chrono"] }
+tokio = {"version"= "1", features=["rt-multi-thread", "macros"]}
